@@ -46,3 +46,10 @@ app.*.map.json
 
 # Widget Preview related
 .widget_preview/
+
+# Platform folders kept locally for this Web TP
+/android/
+/ios/
+/linux/
+/macos/
+/windows/
