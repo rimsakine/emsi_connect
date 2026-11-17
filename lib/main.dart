@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'screens/home_page.dart';
-import 'screens/profile_page.dart';
-import 'screens/courses_page.dart';
 import 'screens/login_page.dart';
 
 void main() {
@@ -14,7 +11,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colors = ColorScheme.fromSeed(seedColor: Colors.indigo);
+    final colors = ColorScheme.fromSeed(seedColor: Colors.pink);
 
     return MaterialApp(
       title: 'EMSI Connect',
@@ -22,6 +19,10 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         useMaterial3: true,
         colorScheme: colors,
+        appBarTheme: AppBarTheme(
+          backgroundColor: colors.primary,
+          foregroundColor: colors.onPrimary,
+        ),
         inputDecorationTheme: InputDecorationThemeData(
           filled: true,
           fillColor: colors.surfaceContainerLow,
@@ -35,7 +36,7 @@ class MyApp extends StatelessWidget {
           ),
         ),
       ),
-      home: const HomePage(),
+      home: const LoginPage(),
     );
   }
 }

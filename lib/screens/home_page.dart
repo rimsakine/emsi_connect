@@ -1,16 +1,34 @@
 import 'package:flutter/material.dart';
 
+import 'about_page.dart';
+import 'courses_page.dart';
+import 'login_page.dart';
+import 'profile_page.dart';
+import 'settings_page.dart';
+
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
+
+    void openPage(Widget page) {
+      Navigator.push<void>(
+        context,
+        MaterialPageRoute<void>(builder: (_) => page),
+      );
+    }
+
+    void openFromDrawer(Widget page) {
+      Navigator.pop(context);
+      openPage(page);
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('EMSI Connect'),
         centerTitle: true,
-        backgroundColor: Colors.blue.shade800,
-        foregroundColor: Colors.white,
         actions: [
           IconButton(
             tooltip: 'Notifications',
@@ -22,11 +40,64 @@ class HomePage extends StatelessWidget {
           IconButton(
             tooltip: 'À propos',
             icon: const Icon(Icons.info_outline),
-            onPressed: () {
-              debugPrint('À propos d’EMSI Connect');
-            },
+            onPressed: () => openPage(const AboutPage()),
           ),
         ],
+      ),
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: [
+            UserAccountsDrawerHeader(
+              decoration: BoxDecoration(color: colors.primary),
+              accountName: const Text('Étudiant EMSI'),
+              accountEmail: const Text('etudiant@emsi.ma'),
+              currentAccountPicture: CircleAvatar(
+                backgroundColor: colors.onPrimary,
+                child: Icon(Icons.person, color: colors.primary),
+              ),
+            ),
+            ListTile(
+              leading: const Icon(Icons.home_outlined),
+              title: const Text('Accueil'),
+              selected: true,
+              onTap: () => Navigator.pop(context),
+            ),
+            ListTile(
+              leading: const Icon(Icons.menu_book_outlined),
+              title: const Text('Mes cours'),
+              onTap: () => openFromDrawer(const CoursesPage()),
+            ),
+            ListTile(
+              leading: const Icon(Icons.person_outline),
+              title: const Text('Mon profil'),
+              onTap: () => openFromDrawer(const ProfilePage()),
+            ),
+            ListTile(
+              leading: const Icon(Icons.settings_outlined),
+              title: const Text('Paramètres'),
+              onTap: () => openFromDrawer(const SettingsPage()),
+            ),
+            ListTile(
+              leading: const Icon(Icons.info_outline),
+              title: const Text('À propos'),
+              onTap: () => openFromDrawer(const AboutPage()),
+            ),
+            const Divider(),
+            ListTile(
+              leading: const Icon(Icons.logout),
+              title: const Text('Déconnexion'),
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.pushAndRemoveUntil<void>(
+                  context,
+                  MaterialPageRoute<void>(builder: (_) => const LoginPage()),
+                  (_) => false,
+                );
+              },
+            ),
+          ],
+        ),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -70,11 +141,25 @@ class HomePage extends StatelessWidget {
                     mainAxisExtent: 110,
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
-                    children: const [
-                      _Rubrique(icon: Icons.menu_book, label: 'Mes cours'),
-                      _Rubrique(icon: Icons.calendar_month, label: 'Planning'),
-                      _Rubrique(icon: Icons.person, label: 'Mon profil'),
-                      _Rubrique(icon: Icons.task_alt, label: 'Mes tâches'),
+                    children: [
+                      _Rubrique(
+                        icon: Icons.menu_book,
+                        label: 'Mes cours',
+                        onTap: () => openPage(const CoursesPage()),
+                      ),
+                      const _Rubrique(
+                        icon: Icons.calendar_month,
+                        label: 'Planning',
+                      ),
+                      _Rubrique(
+                        icon: Icons.person,
+                        label: 'Mon profil',
+                        onTap: () => openPage(const ProfilePage()),
+                      ),
+                      const _Rubrique(
+                        icon: Icons.task_alt,
+                        label: 'Mes tâches',
+                      ),
                     ],
                   );
                 },
@@ -95,26 +180,36 @@ class HomePage extends StatelessWidget {
 }
 
 class _Rubrique extends StatelessWidget {
-  const _Rubrique({required this.icon, required this.label});
+  const _Rubrique({required this.icon, required this.label, this.onTap});
 
   final IconData icon;
   final String label;
+  final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: Colors.blue.shade50,
+    final colors = Theme.of(context).colorScheme;
+
+    return Material(
+      color: colors.primaryContainer,
+      shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Colors.blue.shade100),
+        side: BorderSide(color: colors.outlineVariant),
       ),
-      child: Column(
-        children: [
-          Icon(icon, size: 32, color: Colors.green.shade800),
-          const SizedBox(height: 8),
-          Text(label, textAlign: TextAlign.center),
-        ],
+      clipBehavior: Clip.antiAlias,
+      child: InkWell(
+        onTap: onTap,
+        child: Padding(
+          padding: const EdgeInsets.all(12),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(icon, size: 32, color: colors.onPrimaryContainer),
+              const SizedBox(height: 8),
+              Text(label, textAlign: TextAlign.center),
+            ],
+          ),
+        ),
       ),
     );
   }

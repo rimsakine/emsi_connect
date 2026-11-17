@@ -29,13 +29,10 @@ class _LoginPageState extends State<LoginPage> {
       return;
     }
 
-    final email = _emailController.text.trim();
-
-    ScaffoldMessenger.of(context)
-      ..hideCurrentSnackBar()
-      ..showSnackBar(
-        SnackBar(content: Text('Saisie valide (test local) : $email')),
-      );
+    Navigator.pushReplacement<void, void>(
+      context,
+      MaterialPageRoute<void>(builder: (_) => const HomePage()),
+    );
   }
 
   @override
@@ -130,16 +127,6 @@ class _LoginPageState extends State<LoginPage> {
                         );
                       },
                       child: const Text('Ouvrir le formulaire d’inscription'),
-                    ),
-                    TextButton(
-                      onPressed: () {
-                        Navigator.of(context).push(
-                          MaterialPageRoute<void>(
-                            builder: (_) => const HomePage(),
-                          ),
-                        );
-                      },
-                      child: const Text('Voir l’accueil'),
                     ),
                   ],
                 ),

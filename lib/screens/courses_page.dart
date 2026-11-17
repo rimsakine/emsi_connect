@@ -5,6 +5,7 @@ class CoursesPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
     // Les deux derniers modules illustrent l'ajout de cartes depuis la liste.
     const modules = [
       (
@@ -58,12 +59,7 @@ class CoursesPage extends StatelessWidget {
     ];
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Mes cours'),
-        centerTitle: true,
-        backgroundColor: Colors.indigo.shade700,
-        foregroundColor: Colors.white,
-      ),
+      appBar: AppBar(title: const Text('Mes cours'), centerTitle: true),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
@@ -98,8 +94,8 @@ class CoursesPage extends StatelessWidget {
                     minLeadingWidth: 32,
                     leading: CircleAvatar(
                       radius: 16,
-                      backgroundColor: Colors.indigo.shade50,
-                      foregroundColor: Colors.indigo.shade800,
+                      backgroundColor: colors.primaryContainer,
+                      foregroundColor: colors.onPrimaryContainer,
                       child: Text('${index + 1}'),
                     ),
                     title: Text(
@@ -110,7 +106,7 @@ class CoursesPage extends StatelessWidget {
                       padding: const EdgeInsets.only(top: 4),
                       child: Row(
                         children: [
-                          Icon(module.icone, size: 16, color: Colors.indigo),
+                          Icon(module.icone, size: 16, color: colors.primary),
                           const SizedBox(width: 6),
                           Expanded(
                             child: Text(
@@ -134,6 +130,14 @@ class CoursesPage extends StatelessWidget {
                   ),
                 );
               },
+            ),
+          ),
+          SafeArea(
+            top: false,
+            minimum: const EdgeInsets.fromLTRB(16, 0, 16, 12),
+            child: ElevatedButton(
+              onPressed: () => Navigator.pop(context),
+              child: const Text('Retour'),
             ),
           ),
         ],
