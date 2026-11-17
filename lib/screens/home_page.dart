@@ -57,33 +57,28 @@ class HomePage extends StatelessWidget {
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 24),
-              const Row(
-                children: [
-                  Expanded(
-                    child: _Rubrique(icon: Icons.menu_book, label: 'Mes cours'),
-                  ),
-                  SizedBox(width: 12),
-                  Expanded(
-                    child: _Rubrique(
-                      icon: Icons.calendar_month,
-                      label: 'Planning',
-                    ),
-                  ),
-                ],
-              ),
+
               const SizedBox(height: 12),
-              const Row(
-                children: [
-                  Expanded(
-                    child: _Rubrique(icon: Icons.person, label: 'Mon profil'),
-                  ),
-                  SizedBox(width: 12),
-                  Expanded(
-                    child: _Rubrique(icon: Icons.task_alt, label: 'Mes tâches'),
-                  ),
-                ],
+              LayoutBuilder(
+                builder: (context, constraints) {
+                  final nombreColonnes = constraints.maxWidth < 600 ? 2 : 3;
+
+                  return GridView.count(
+                    crossAxisCount: nombreColonnes,
+                    crossAxisSpacing: 12,
+                    mainAxisSpacing: 12,
+                    mainAxisExtent: 110,
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    children: const [
+                      _Rubrique(icon: Icons.menu_book, label: 'Mes cours'),
+                      _Rubrique(icon: Icons.calendar_month, label: 'Planning'),
+                      _Rubrique(icon: Icons.person, label: 'Mon profil'),
+                      _Rubrique(icon: Icons.task_alt, label: 'Mes tâches'),
+                    ],
+                  );
+                },
               ),
-              const SizedBox(height: 64),
             ],
           ),
         ),
