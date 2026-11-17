@@ -1,0 +1,54 @@
+1. Column, SingleChildScrollView et ListView
+1. Quelle est la différence entre ces trois widgets ?
+    Column place ses enfants verticalement.SingleChildScrollView permet de faire défiler son enfant lorsque le contenu dépasse l’écran.ListView affiche une liste défilante.
+2. Quel widget rend la Column défilante dans la version B ?
+    C’est SingleChildScrollView.
+3. Pourquoi une Column seule peut - elle déborder ?
+    Elle déborde si la hauteur totale de ses enfants dépasse la hauteur disponible.
+4. Quel choix convient à la page « Mon profil » ?
+J’utiliserais un SingleChildScrollView avec une Column, car le profil contient quelques éléments variés, comme la photo, les informations et les boutons.
+5. Quel choix convient à une liste de 100 cours ?
+    J’utiliserais ListView.builder, car il construit les cartes à la demande pendant le défilement.
+6. Une ListView peut - elle afficher différents widgets ?
+    Oui.Elle peut contenir, par exemple, un titre, des cartes et des espaces.
+2. Liste simple de modules
+1. Quelle différence entre padding et SizedBox ?
+    Le padding ajoute de l’espace autour du contenu.Un SizedBox(height: 12) placé entre deux éléments crée un espace vertical de 12 pixels logiques.
+2. Quelle différence entre child et children ?
+    child reçoit un seul widget.children reçoit une liste de widgets.
+3. Cartes et ListTile
+1. Quelle différence entre margin et padding ?
+    La marge crée de l’espace à l’extérieur de la carte.Le padding ajoute de l’espace à l’intérieur, autour du contenu.
+2. À quoi sert elevation ?
+    Elle règle l’élévation visuelle de la carte.En passant de 0 à 6, l’ombre devient plus visible.
+3. Quelle différence entre Card et Container ?
+    Card fournit une surface Material avec des propriétés comme la forme et l’élévation.Container sert à dimensionner, positionner ou décorer un widget.
+4. Quel est le rôle de leading, title, subtitle et trailing ?
+    Dans mon code, leading affiche le numéro à gauche, title affiche le nom du cours, subtitle affiche l’icône du module, l’enseignant et le volume horaire, et trailing affiche la flèche à droite.
+5. Pourquoi utiliser ListTile ?
+    Il fournit une structure prête à l’emploi pour aligner ces éléments et gérer le clic avec onTap.
+6. Une Card doit - elle contenir un ListTile ?
+    Elle peut aussi contenir un autre widget, comme un Text ou une Column.
+4. Clic et SnackBar
+1. Qu’est - ce qu’un callback ?
+    C’est une fonction que l’on transmet à un widget pour qu’il l’appelle lorsqu’un événement se produit.
+2. Pourquoi onTap ne s’exécute - t - il pas dès l’affichage ?
+    Flutter reçoit la fonction lors de la construction du widget et l’appelle lorsque l’utilisateur appuie sur la carte.
+3. Quelle différence entre onTap et onPressed ?
+    onTap réagit à un appui sur un élément comme ListTile.onPressed est utilisé par des boutons comme ElevatedButton.
+4. Quelle différence entre debugPrint et SnackBar ?
+    debugPrint écrit dans la console.Le SnackBar affiche temporairement un message dans l’application.Dans ce TP, il affiche le nom exact du module sélectionné.
+5. ListView.builder
+1. À quoi sert itemCount ?
+    Il indique le nombre d’éléments à afficher.Ici, sa valeur est modules.length.
+2. Que représente index ?
+    C’est la position du module dans la liste.Le premier module est à l’index 0, donc j’utilise index + 1 pour numéroter les cartes à partir de 1.
+3. Pourquoi modules[index] fonctionne - t - il ?
+    Les modules sont stockés dans une liste ordonnée.Les crochets permettent de récupérer le module à la position demandée.
+4. Quelle différence entre ListView(children: ...) et ListView.builder ?
+    Avec children, je fournis directement la liste des widgets.Avec ListView.builder, je fournis une fonction qui construit chaque carte à la demande.
+6. Contraintes de hauteur
+1. Pourquoi Expanded corrige - t - il le problème de hauteur ?
+    Dans la Column du Scaffold, Expanded attribue à la liste la hauteur restante après le titre.La liste peut alors défiler dans cet espace pendant que le titre reste fixe.
+2. Pourquoi ne faut - il pas entourer systématiquement ListView d’un SingleChildScrollView ?
+    ListView gère déjà son propre défilement.Dans cette page, Expanded lui donne la hauteur dont elle a besoin.
