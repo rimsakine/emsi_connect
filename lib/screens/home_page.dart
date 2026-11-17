@@ -5,6 +5,7 @@ import 'courses_page.dart';
 import 'login_page.dart';
 import 'profile_page.dart';
 import 'settings_page.dart';
+import 'multimedia_page.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -72,6 +73,17 @@ class HomePage extends StatelessWidget {
               leading: const Icon(Icons.person_outline),
               title: const Text('Mon profil'),
               onTap: () => openFromDrawer(const ProfilePage()),
+            ),
+            ListTile(
+              leading: const Icon(Icons.perm_media),
+              title: const Text('Espace multimédia'),
+              onTap: () {
+                Navigator.pop(context); // Ferme le Drawer.
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => const MultimediaPage()),
+                );
+              },
             ),
             ListTile(
               leading: const Icon(Icons.settings_outlined),
